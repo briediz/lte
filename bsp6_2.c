@@ -98,7 +98,22 @@ static struct file_operations fops = {
 
 static int __init mod_init (void)
 {
-  dev_info(
+  dev_info(gpio_dev, "mod_init");
+  init_wait_queue_head(&sleeping_for_ir);
+  if(alloc_chrdev_region(&gpio_dev_number,0,1,"gpioirq17")<0 )
+    return -EIO;
+  driver_object = cdev_alloc();
+  if(driver_object==NULL)
+    goto free_device_number;
+  driver_object->owner = THIS_MODULE;
+  driver_object->ops = &ops;
+  if (cdev_add(driver_object, gpio_dev_number,1))
+    goto free_cdev;
+  gpio_class = class_create(THIS_MODULE, "gpioirq17");
+  if(IS_ERR(gpio_class)){
+    pr_err("gpioirq17: no udev support\n");
+    goto free_cdev;
+  }
   
 }
  
