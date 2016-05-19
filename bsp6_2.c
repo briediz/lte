@@ -98,7 +98,7 @@ static struct file_operations fops = {
 
 static int __init mod_init (void)
 {
-  // TODO
+  dev_info(
   
 }
  
