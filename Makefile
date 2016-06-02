@@ -1,4 +1,4 @@
-obj-m+=bsp5_8.o
+obj-m+=bsp6_17.o
 
  
 all:
