@@ -127,7 +127,7 @@ static int __init mod_init (void)
   free_class:
     class_destroy(gpio_class);
   free_cdev:
-    //kobject_put( &driver_object->kobject);
+    kobject_put( &driver_object->kobject);
   free_device_number:
     unregister_chrdev_region(gpio_dev_number, 1);
     return -EIO;
@@ -150,3 +150,4 @@ static void __init mod_exit (void)
 module_init(mod_init);
 module_exit(mod_exit);
 
+MODULE_LICENCE("GPL");
